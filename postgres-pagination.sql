@@ -1,5 +1,11 @@
 -- Tại sao không sử dụng COUNT(*) OVER () cho phan trang
 -- insert 10tr record
+create table milliontable (
+    id numeric PRIMARY KEY,
+    name varchar(20),
+    age numeric
+ );
+
 INSERT INTO milliontable (id, name, age)
 select
 	*,
