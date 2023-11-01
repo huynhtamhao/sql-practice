@@ -61,6 +61,40 @@ order by ID;
 
 
 ----------- SQL name generate
+
+create table million_table (
+    id numeric PRIMARY KEY,
+    first_name varchar(40),
+    middle_name varchar(40),
+    last_name varchar(40),
+    age numeric
+ );
+
+select * from million_table;
+
+INSERT INTO million_table (id, first_name, middle_name, last_name, age)
+SELECT
+    s.*,
+    arrays.firstnames[s.a % ARRAY_LENGTH(arrays.firstnames,1) + 1] as first_name,
+    substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ' from s.a%26+1 for 1) as middle_name,
+    arrays.lastnames[s.a % ARRAY_LENGTH(arrays.lastnames,1) + 1] as last_name,
+    (random() * 70 + 10)::integer as age
+FROM generate_series(1, 10000000) AS s(a)
+CROSS JOIN(
+    SELECT ARRAY[
+    'Adam','Bill','Bob','Calvin','Donald','Dwight','Frank','Fred','George','Howard',
+    'James','John','Jacob','Jack','Martin','Matthew','Max','Michael',
+    'Paul','Peter','Phil','Roland','Ronald','Samuel','Steve','Theo','Warren','William',
+    'Abigail','Alice','Allison','Amanda','Anne','Barbara','Betty','Carol','Cleo','Donna',
+    'Jane','Jennifer','Julie','Martha','Mary','Melissa','Patty','Sarah','Simone','Susan'
+    ] AS firstnames,
+    ARRAY[
+        'Matthews','Smith','Jones','Davis','Jacobson','Williams','Donaldson','Maxwell','Peterson','Stevens',
+        'Franklin','Washington','Jefferson','Adams','Jackson','Johnson','Lincoln','Grant','Fillmore','Harding','Taft',
+        'Truman','Nixon','Ford','Carter','Reagan','Bush','Clinton','Hancock'
+    ] AS lastnames
+) AS arrays;
+
 SELECT
     arrays.firstnames[s.a % ARRAY_LENGTH(arrays.firstnames,1) + 1] AS firstname,
     substring('ABCDEFGHIJKLMNOPQRSTUVWXYZ' from s.a%26+1 for 1) AS middlename,
