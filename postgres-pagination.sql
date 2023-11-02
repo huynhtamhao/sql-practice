@@ -114,3 +114,18 @@ CROSS JOIN(
         'Truman','Nixon','Ford','Carter','Reagan','Bush','Clinton','Hancock'
     ] AS lastnames
 ) AS arrays
+
+---------
+create table result_of_exam (
+    id serial PRIMARY KEY,
+    student_id varchar(8),
+    subject_id varchar(8),
+    score int2
+ );
+insert into result_of_exam (student_id, subject_id, score) values ('STD1', 'Math', 8);
+insert into result_of_exam (student_id, subject_id, score) values ('STD1', 'Science', 9);
+insert into result_of_exam (student_id, subject_id, score) values ('STD2', 'Math', 4);
+insert into result_of_exam (student_id, subject_id, score) values ('STD2', 'Science', 7);
+insert into result_of_exam (student_id, subject_id, score) values ('STD3', 'Math', 8);
+insert into result_of_exam (student_id, subject_id, score) values ('STD3', 'Science', 0);
+insert into result_of_exam (student_id, subject_id, score) values ('STD4', 'Math', 10);
